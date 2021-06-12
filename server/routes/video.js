@@ -3,7 +3,8 @@ const router = express.Router();
 //const { Video } = require("../models/Video");
 const multer = require("multer");
 const { auth } = require("../middleware/auth");
-
+let ffmpeg = require("fluent-ffmpeg");
+const { compareSync } = require('bcrypt');
 
 // STORAGE MULTER CONFIG
 let storage = multer.diskStorage({
@@ -36,15 +37,44 @@ router.post("/uploadfiles", (req, res) => {
         return res.json({ success: true, url: res.req.file.path, fileName: res.req.file.filename })
     })
 
-
-    // user.save((err, doc) => {
-    //     if (err) return res.json({ success: false, err });
-    //     return res.status(200).json({
-    //         success: true
-    //     });
-    // });
 });
 
+router.post("/thumbnail", (req, res) => {
+    let filePath = "";
+    let fileDuration = "";
 
+    //get video running time
+    ffmpeg.ffprobe(req.body.url, (err, metadata) => {
+        console.dir(metadata);
+        console.log(metadata.format.duration);
+        fileDuration = metadata.format.duration;
+    })
+
+    // thumbnail save
+    ffmpeg(req.body.url)
+    .on('filenames', (filenames) => {
+        console.log(`Will generate ${filenames.join(', ')}`);
+        console.log(filenames);
+
+        filePath = `uploads/thumbnails/${filenames[0]}`
+    })
+    .on('end', () => {
+        console.log('Screenshots taken');
+        return res.json({ success: true, url: filePath, fileDuration: fileDuration})
+    })
+    .on('error', (err) => {
+        console.log(err);
+        return res.json({success: false, err});
+    })
+    .screenshots({
+        // 스크린샷 갯수와 경로, 썸네일 사이즈
+        count: 3,
+        folder: 'uploads/thumbnails',
+        size: '320x240',
+
+        filename: 'thumbnail-%b.png'
+    })
+
+});
 
 module.exports = router;
