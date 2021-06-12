@@ -17,9 +17,10 @@
 - ffmpeg로 비디오 썸네일 생성하기
   - 썸네일 생성을 위한 모듈 설치: $ brew install ffmpeg
     - 내 맥북이 구모델이라 중간에 theora 가 url이 막혀서
-    - $ brew edit ora 로 들어가서
+    - wget으로 받아본다음 주소를 복사해서
+    - $ brew edit theora 로 편집기 들어가서
     - url의 내용을 https://ftp.osuosl.org/pub/xiph/releases/theora/libtheora-1.1.1.tar.bz2 이걸로
-    - 바꿔서 설치함.
+    - 바꿔서하니 설치 잘 됨인데, 아직도 설치중... 6시간째 설치라닛..
   - $ npm install fluent-ffmpeg
   - 서버에 저장된 비디오를 이용한 썸네일 생성
   - 생성된 썸네일을 서버에 저장
