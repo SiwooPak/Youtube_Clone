@@ -21,7 +21,7 @@
     - $ brew edit theora 로 편집기 들어가서
     - url의 내용을 https://ftp.osuosl.org/pub/xiph/releases/theora/libtheora-1.1.1.tar.bz2 이걸로
     - 바꿔서하니 설치 잘 됨인데, 아직도 설치중... 6시간째 설치라닛..
-    - 찾아보니 빠르게 다운로드받고 설치하는 건 https://evermeet.cx/ffmpeg/
+    - dependency rust 쪽의 에러가 나서 brew install rust
   - $ npm install fluent-ffmpeg --save
   - 서버에 저장된 비디오를 이용한 썸네일 생성
   - 생성된 썸네일을 서버에 저장
