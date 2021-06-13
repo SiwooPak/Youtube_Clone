@@ -27,3 +27,12 @@
   - 생성된 썸네일을 서버에 저장
   - 썸네일 이미지 파일 경로 정보를 클라이언트에 보내기
   - 썸네일 이미지를 화면에 표시
+
+  ### 6/13
+  - 비디오 업로드하기
+    - server/models/Video.js 작성
+    - 비디오 Collection
+    - client/src/components/views/VideoUploadPage/VideoUploadPage.js
+      - onSubmit 함수 작성
+      - 요청할 데이터들을 서버에 보냄
+      - 보낸 데이터들을 MongoDB에 저장
