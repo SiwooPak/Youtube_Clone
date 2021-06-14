@@ -44,10 +44,17 @@
   - mongoDB에서 모든 비디오 데이터 가져오기
   - 가져온 비디오 데이터들을 스크린에 뿌리기
 
-
+### 6/14
 - Video Detail Page 만들기
- - 비어있는 비디오 디테일 페이지 생성(/client/src/components/views/VideoDetailPage/VideoDetailPage.js)
- - 비디오 디테일 페이지를 위한 Route 만들기(/client/src/components/App.js)
- - 비디오 디테일 페이지 템플릿 만들기
- - mongoDB에서 비디오 데이터 가져오기
- - 가져온 데이터들을 스크린에 출력
+  - 비어있는 비디오 디테일 페이지 생성(/client/src/components/views/VideoDetailPage/VideoDetailPage.js)
+  - 비디오 디테일 페이지를 위한 Route 만들기(/client/src/components/App.js)
+  - 비디오 디테일 페이지 템플릿 만들기
+  - mongoDB에서 비디오 데이터 가져오기
+  - 가져온 데이터들을 스크린에 출력
+
+### 6/15
+- Video Detail Page의  sidebar 구현
+  - side video 레이아웃 템플릿 만들기
+  - 1개의 카드 템플릿 만들기
+  - DB에서 모든 비디오 데이터를 불러오기
+  - 불러온 데이터 화면에 출력하기
