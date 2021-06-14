@@ -78,7 +78,6 @@ router.post("/thumbnail", (req, res) => {
 });
 
 router.post("/uploadVideo", (req, res) => {
-
     // mongodb save
     const video = new Video(req.body);
 
@@ -86,9 +85,17 @@ router.post("/uploadVideo", (req, res) => {
         if(err) return res.json({success: false, err});
         res.status(200).json({success: true});
     })
-
-
 });
 
+router.get("/getVideos", (req, res) => {
+    // 비디오 정보를 가져온다. 
+    Video.find()
+        .populate('writer')
+        .exec((err,videos) => {
+            if(err) return res.status(400).send(err);
+            res.status(200).json({success: true, videos})
+        })
+    
+});
 
 module.exports = router;

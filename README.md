@@ -37,3 +37,17 @@
     - onSubmit 함수 작성
     - 요청할 데이터들을 서버에 보냄
     - Landing Page로 이동.
+
+- Landing Page에 업로드된 비디오들 보여주기.
+  - 빈 Landing Page 생성
+  - 비디오 카드 템플릿 만들기
+  - mongoDB에서 모든 비디오 데이터 가져오기
+  - 가져온 비디오 데이터들을 스크린에 뿌리기
+
+
+- Video Detail Page 만들기
+ - 비어있는 비디오 디테일 페이지 생성(/client/src/components/views/VideoDetailPage/VideoDetailPage.js)
+ - 비디오 디테일 페이지를 위한 Route 만들기(/client/src/components/App.js)
+ - 비디오 디테일 페이지 템플릿 만들기
+ - mongoDB에서 비디오 데이터 가져오기
+ - 가져온 데이터들을 스크린에 출력

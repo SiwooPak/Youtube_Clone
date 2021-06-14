@@ -6,7 +6,7 @@ const moment = require("moment");
 
 const videoSchema = mongoose.Schema({
     writer: {
-        type: Schema.on.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User'
     },
     title: {
@@ -41,6 +41,6 @@ const videoSchema = mongoose.Schema({
 
 
 
-const User = mongoose.model('Video', videoSchema);
+const Video = mongoose.model('Video', videoSchema);
 
 module.exports = { Video }
