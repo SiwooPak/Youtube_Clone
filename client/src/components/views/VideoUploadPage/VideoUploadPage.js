@@ -2,12 +2,14 @@ import React,{useState} from "react";
 import { Typography, Button, Form, message, Input, Icon } from "antd";
 import Dropzone from "react-dropzone";
 import Axios from "axios";
+import { useHistory } from 'react-router-dom';
 
 //유저state의 정보를 가져오기 위해
 import {useSelector} from 'react-redux';
 
 const { TextArea } = Input;
 const { Title } = Typography;
+
 const PrivateOptions = [
   {value:0, label:"Private"},
   {value:1, label:"Public"}
@@ -20,16 +22,16 @@ const CategoryOptions = [
 ];
 
 
-function VideoUploadPage(props) {
+function VideoUploadPage()  {
   const user = useSelector(state => state.user);
   const [VideoTitle, setVideoTitle] = useState("");
   const [Description, setDescription] = useState("");
   const [Private, setPrivate] = useState(0);
-  const [Category, setCategory] = useState("File & Animation");
+  const [Category, setCategory] = useState("Film & Animation");
   const [FilePath, setFilePath] = useState("");
   const [Duration, setDuration] = useState("");
   const [ThumbnailPath, setThumbnailPath] = useState("");
-
+  const history = useHistory();
 
   const onTitleChange = (e) => {
     // console.log(e.currentTarget);
@@ -39,7 +41,7 @@ function VideoUploadPage(props) {
   const onPrivateChange = (e) => setPrivate(e.target.value);
   const onCategoyChange = (e) => setCategory(e.target.value);
   const onDrop = (files) => {
-    let formData = new FormData;
+    let formData = new FormData();
     const config = {
       header: {'content-type': 'multipart/form-data'}
     }
@@ -51,15 +53,16 @@ function VideoUploadPage(props) {
         if(response.data.success) {
           //console.log(response.data);
           let variable = {
-            url: response.data.url,
-            fineName: response.data.fileName
+            filePath: response.data.filePath,
+            fileName: response.data.fileName
           }
-          setFilePath(response.data.url);
+          setFilePath(response.data.filePath);
           Axios.post('/api/video/thumbnail', variable)
           .then(response => {
-            if(response.data.succese) {
+            if(response.data.success) {
               setDuration(response.data.fileDuration);
-              setThumbnailPath(response.data.url);
+              setThumbnailPath(response.data.thumbsFilePath);
+              console.log(response.data);
             } else {
               alert('Thumbnail Failed');
             }
@@ -71,7 +74,7 @@ function VideoUploadPage(props) {
   }
 
   const onSubmit = (e) => {
-    e.preventDefalut();
+    e.preventDefault();
 
     const variables = {
       writer: user.userData._id,
@@ -82,7 +85,6 @@ function VideoUploadPage(props) {
       category: Category,
       duration: Duration,
       thumbnail: ThumbnailPath
-
     }
 
     Axios.post('/api/video/uploadVideo', variables)
@@ -91,7 +93,7 @@ function VideoUploadPage(props) {
         //console.log(response.data)
         message.success("Upload Successed!");
         setTimeout(() => {
-          props.history('/');
+          history.push('/');
         }, 3000);
         
       } else {

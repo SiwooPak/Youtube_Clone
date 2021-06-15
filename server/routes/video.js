@@ -34,33 +34,34 @@ router.post("/uploadfiles", (req, res) => {
     // video save server
     upload(req, res, err => {
         if(err) return res.json({ success: false, err})
-        return res.json({ success: true, url: res.req.file.path, fileName: res.req.file.filename })
+        return res.json({ success: true, filePath: res.req.file.path, fileName: res.req.file.filename })
     })
 
 });
 
 router.post("/thumbnail", (req, res) => {
-    let filePath = "";
+    let thumbsFilePath = "";
     let fileDuration = "";
-
+    //console.log(`req.body.filePath: ${req.body.filePath}`)
     //get video running time
-    ffmpeg.ffprobe(req.body.url, (err, metadata) => {
-        console.dir(metadata);
-        console.log(metadata.format.duration);
+    ffmpeg.ffprobe(req.body.filePath, (err, metadata) => {
+        //console.dir(metadata);
+        //console.log(metadata.format.duration);
         fileDuration = metadata.format.duration;
     })
 
     // thumbnail save
-    ffmpeg(req.body.url)
+    ffmpeg(req.body.filePath)
     .on('filenames', (filenames) => {
-        console.log(`Will generate ${filenames.join(', ')}`);
-        console.log(filenames);
+        //onsole.log(`Will generate ${filenames.join(', ')}`);
+        //console.log(filenames);
 
-        filePath = `uploads/thumbnails/${filenames[0]}`
+        thumbsFilePath = `uploads/thumbnails/${filenames[0]}`;
+        console.log(`file path: ${thumbsFilePath}`);
     })
     .on('end', () => {
-        console.log('Screenshots taken');
-        return res.json({ success: true, url: filePath, fileDuration: fileDuration})
+        //console.log('Screenshots taken');
+        return res.json({ success: true, thumbsFilePath: thumbsFilePath, fileDuration: fileDuration})
     })
     .on('error', (err) => {
         console.log(err);
@@ -68,7 +69,7 @@ router.post("/thumbnail", (req, res) => {
     })
     .screenshots({
         // 스크린샷 갯수와 경로, 썸네일 사이즈
-        count: 3,
+        count: 1,
         folder: 'uploads/thumbnails',
         size: '320x240',
 
@@ -98,15 +99,18 @@ router.get("/getVideos", (req, res) => {
     
 });
 
-router.get("/getVideoDetail", (req, res) => {
+router.post("/getVideoDetail", (req, res) => {
     // 비디오 정보를 가져온다. 
-    Video.findOne({"_id": req.data.videoId})
-        .populate('writer')
+    let videoId = req.body.videoId;
+    console.log(req.body.videoId);
+    Video.findOne({"_id": videoId})
+        .populate("writer")
         .exec((err, videoDetail) => {
             if(err) return res.status(400).send(err);
-            return res.status(400).json({success: true, videoDetail})
+            return res.status(200).json({success: true, videoDetail})
         })
     
 });
+
 
 module.exports = router;

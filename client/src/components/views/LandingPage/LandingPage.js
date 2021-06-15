@@ -14,7 +14,7 @@ function LandingPage() {
   useEffect(() => {
     Axios.get("/api/video/getVideos").then((response) => {
       if (response.data.success) {
-        console.log(response.data);
+        //console.log(response.data);
         setVideo(response.data.videos);
       } else {
         alert("video null.");
@@ -27,7 +27,7 @@ function LandingPage() {
     let sec = Math.floor(video.duration - min * 60);
 
     return (
-      <Col lg={6} md={8} xs={24}>
+      <Col key={index} lg={6} md={8} xs={24}>
         <div style={{ position: "relative" }}>
           <a href={`/video/${video._id}`}>
             <img
@@ -59,7 +59,7 @@ function LandingPage() {
       <Title level={2}>Recommended</Title>
       <br />
       <Row gutter={[32, 16]}>
-        <renderCards />
+        {renderCards}
       </Row>
     </div>
   );
