@@ -1,3 +1,4 @@
+## 해야 할일
 ### 6/8 front단 video upload 페이지 템플릿 및 drop-zone 모듈 설치 및 활용.
 - 모듈 설치: npm install react-dropzone --save
 
@@ -62,3 +63,11 @@
   - 1개의 카드 템플릿 만들기
   - DB에서 모든 비디오 데이터를 불러오기
   - 불러온 데이터 화면에 출력하기
+
+### 6/16
+- 구독기능(1)
+  - Subscriber Model 만들기 (column: userTo, userFrom)
+  - Subscribe Button UI
+  - DB에서 얼마나 많은 사람이 비디오 업로드 한 유저를 구독하는지 정보 가져오기
+  - 내가 이 비디오 업로드한 유저를 구독하는지 정보 가져오기
+  - 가져온 정보를 화면에 출력
