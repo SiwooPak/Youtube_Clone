@@ -18,11 +18,12 @@ function VideoDetailPage(props) {
     })
   },[])
 
-  if (VideoDetail.writer) {
+  
     return (
       
       <div>
-        <Row gutter={[16, 16]}>
+        {VideoDetail.writer ? (
+          <Row gutter={[16, 16]}>
           <Col lg={18} xs={24}>
             <div style={{ width: '100%', padding: '3rem, 4rem' }}>
               {/* main screen */}
@@ -46,11 +47,11 @@ function VideoDetailPage(props) {
             {/* Side Videos */}
           </Col>
         </Row>
+        ) : (
+          <span>...loading</span>
+        )}
       </div>
-    );
-  } else {
-      return <div>...loading</div>
-  }
+    ); 
 }
 
 export default VideoDetailPage;
