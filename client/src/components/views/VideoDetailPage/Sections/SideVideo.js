@@ -42,9 +42,9 @@ function SideVideo() {
   
 
     return (
-        <React.Fragment>
+        <>
             {renderSideVideo}
-        </React.Fragment>
+        </>
         
     )
 }

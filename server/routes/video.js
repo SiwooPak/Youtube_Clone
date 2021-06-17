@@ -102,7 +102,7 @@ router.get("/getVideos", (req, res) => {
 router.post("/getVideoDetail", (req, res) => {
     // 비디오 정보를 가져온다. 
     let videoId = req.body.videoId;
-    console.log(req.body.videoId);
+    //console.log(req.body.videoId);
     Video.findOne({"_id": videoId})
         .populate("writer")
         .exec((err, videoDetail) => {

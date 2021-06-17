@@ -64,7 +64,7 @@
   - DB에서 모든 비디오 데이터를 불러오기
   - 불러온 데이터 화면에 출력하기
 
-### 6/16
+### 6/16~17
 - 구독기능(1)
   - Subscriber Model 만들기 (column: userTo, userFrom)
   - Subscribe Button UI
