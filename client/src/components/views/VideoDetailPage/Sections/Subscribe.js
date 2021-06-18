@@ -4,14 +4,14 @@ import Axios from "axios";
 function Subscribe({ userTo, userFrom }) {
   const [SubscribeNum, setSubscribeNum] = useState(0);
   const [IsSubscribed, setIsSubscribed] = useState(false);
-  //console.log(userTo, userFrom);
+  console.log(`first IsSubscribed: ${IsSubscribed}`);
   useEffect(() => {
-    let subscribeVar = {
+    const subscribeVars = {
       userTo: userTo,
-      userFrom: localStorage.getItem("userId"),
+      userFrom: userFrom,
     };
 
-    Axios.post("/api/subscribe/subscribeNumber", subscribeVar).then(
+    Axios.post("/api/subscribe/subscribeNumber", subscribeVars).then(
       (response) => {
         if (response.data.success) {
           setSubscribeNum(response.data.subscribeNumber);
@@ -20,16 +20,17 @@ function Subscribe({ userTo, userFrom }) {
         }
       }
     );
-
-    Axios.post("/api/subscribe/subscribed", subscribeVar).then((response) => {
+    
+    Axios.post("/api/subscribe/subscribed", subscribeVars).then((response) => {
       if (response.data.success) {
-        setIsSubscribed(response.data.isSubscribed);
+        setIsSubscribed(response.data.subscribed);
       } else {
         alert("구독자 수의 정보를 가져오지 못했습니다.");
       }
     });
-  }, []);
-
+  });
+  console.log(`After useEffect IsSubscribed: ${IsSubscribed}`);
+  
   const onSubscribe = () => {
     let subscribedVar = {
       userTo: userTo,
@@ -39,9 +40,11 @@ function Subscribe({ userTo, userFrom }) {
       Axios.post("/api/subscribe/unSubscribe", subscribedVar).then(
         (response) => {
           if (response.data.success) {
+            //console.log('UnSubscribed Success');  
             setSubscribeNum(SubscribeNum - 1);
             setIsSubscribed(!IsSubscribed);
           } else {
+            //console.log('UnSubscribed Fail');  
             alert("Unsubscirbe failed!");
           }
         }
@@ -49,9 +52,11 @@ function Subscribe({ userTo, userFrom }) {
     } else {
       Axios.post("/api/subscribe/subscribe", subscribedVar).then((response) => {
         if (response.data.success) {
+          //console.log('Subscribed Success'); 
           setSubscribeNum(SubscribeNum + 1);
           setIsSubscribed(!IsSubscribed);
         } else {
+          //console.log('Subscribed Fail');   
           alert("Subscribe Failed!");
         }
       });

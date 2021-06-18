@@ -14,16 +14,18 @@ router.post("/subscribeNumber", (req, res) => {
 });
 
 router.post("/subscribed", (req, res) => {
+    
     Subscriber.find({ 'userTo': req.body.userTo, 'userFrom': req.body.userFrom})
     .exec((err, subscribe) => {
         if(err) return res.status(400).send(err);
 
-        let isSubscribed = false;
+        let result = false;
 
         if(subscribe.length !== 0 ) {
-            isSubscribed = true
+            result = true;
         }
-        return res.status(200).json({ success: true, isSubscribed: isSubscribed});
+        //console.log(result);
+        return res.status(200).json({ success: true, subscribed: result});
     })
 });
 
