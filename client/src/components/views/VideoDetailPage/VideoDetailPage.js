@@ -8,7 +8,7 @@ function VideoDetailPage(props) {
   const videoId = props.match.params.videoId;
   const variable = { videoId: videoId };
   const [VideoDetail, setVideoDetail] = useState([]);
-  //console.log(`videoId: ${videoId}`);
+  
   useEffect(() => {
     Axios.post(`/api/video/getVideoDetail`, variable).then((response) => {
       if (response.data.success) {
@@ -24,10 +24,12 @@ function VideoDetailPage(props) {
       
       <div>
         {VideoDetail.writer ? (
+         
           <Row gutter={[16, 16]}>
           <Col lg={18} xs={24}>
             <div style={{ width: '100%', padding: '3rem, 4rem' }}>
               {/* main screen */}
+              {/* <span>videoDetail: {VideoDetail.writer._id}</span> */}
               <video
                 style = {{ width: "100%" }}
                 src = {`http://localhost:5000/${VideoDetail.filePath}`}
@@ -35,10 +37,10 @@ function VideoDetailPage(props) {
               />
               {/* title, like, subscribe */}
               <List.Item 
-                actions={[<Subscribe usetTo={VideoDetail.writer._id}/>]}
+                actions={[<Subscribe userTo={VideoDetail.writer._id} userFrom={localStorage.getItem('userId')}/>]}
               >
                 <List.Item.Meta
-                  avatar = {<Subscribe />}
+                  avatar = {<Avatar src={VideoDetail.writer && VideoDetail.writer.image} />}
                   title = {VideoDetail.writer.name}
                   description = {VideoDetail.description}
                 />
@@ -47,7 +49,6 @@ function VideoDetailPage(props) {
             </div>
           </Col>
           <Col lg={6} xs={24}>
-            {/* Side Videos */}
             <SideVideo />
           </Col>
         </Row>
