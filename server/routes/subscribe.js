@@ -21,7 +21,7 @@ router.post("/subscribed", (req, res) => {
 
         let result = false;
 
-        if(subscribe.length !== 0 ) {
+        if(subscribe) {
             result = true;
         }
         //console.log(result);
