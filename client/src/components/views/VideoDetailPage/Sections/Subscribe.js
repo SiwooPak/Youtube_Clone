@@ -26,7 +26,7 @@ function Subscribe({userTo}) {
             if(response.data.success) {
                 setIsSubsribed(response.data.IsSubscribed);
             } else {
-                alert('구독자의 정보를 가져오지 못했습니다.');
+                alert('구독 여부의 정보를 가져오지 못했습니다.');
             }
         })
 
