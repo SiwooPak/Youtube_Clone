@@ -4,13 +4,13 @@ import Axios from "axios";
 function Subscribe({ userTo, userFrom }) {
   const [SubscribeNum, setSubscribeNum] = useState(0);
   const [IsSubscribed, setIsSubscribed] = useState(false);
-  console.log(`first IsSubscribed: ${IsSubscribed}`);
-  useEffect(() => {
-    const subscribeVars = {
-      userTo: userTo,
-      userFrom: userFrom,
-    };
 
+  const subscribeVars = {
+    userTo: userTo,
+    userFrom: userFrom,
+  };  
+
+  useEffect(() => {
     Axios.post("/api/subscribe/subscribeNumber", subscribeVars).then(
       (response) => {
         if (response.data.success) {
@@ -29,15 +29,11 @@ function Subscribe({ userTo, userFrom }) {
       }
     });
   });
-  console.log(`After useEffect IsSubscribed: ${IsSubscribed}`);
+
   
   const onSubscribe = () => {
-    let subscribedVar = {
-      userTo: userTo,
-      userFrom: userFrom,
-    };
     if (IsSubscribed) {
-      Axios.post("/api/subscribe/unSubscribe", subscribedVar).then(
+      Axios.post("/api/subscribe/unSubscribe", subscribeVars ).then(
         (response) => {
           if (response.data.success) {
             //console.log('UnSubscribed Success');  
@@ -50,7 +46,7 @@ function Subscribe({ userTo, userFrom }) {
         }
       );
     } else {
-      Axios.post("/api/subscribe/subscribe", subscribedVar).then((response) => {
+      Axios.post("/api/subscribe/subscribe", subscribeVars ).then((response) => {
         if (response.data.success) {
           //console.log('Subscribed Success'); 
           setSubscribeNum(SubscribeNum + 1);
