@@ -60,6 +60,7 @@ function Subscribe({ userTo, userFrom }) {
 
   return (
     <div>
+        {/* 등록자와 접속자가 다른 경우 버튼 */}
       {userTo !== userFrom ? (
         <button
           style={{
@@ -76,6 +77,7 @@ function Subscribe({ userTo, userFrom }) {
           {SubscribeNum} {IsSubscribed ? "Subscribed" : "Subscribe"}
         </button>
       ) : (
+        //   등록자와 접속자가 같으면 span
         <span
           style={{
             backgroundColor: "#CC0000",
