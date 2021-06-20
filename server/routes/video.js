@@ -116,9 +116,9 @@ router.post("/getVideoDetail", (req, res) => {
 
 router.post("/getSubVideos", (req, res) => {
     // 자신의 아이디를 가지고 구독하는 사람들을 찾는다.
-    let userFrom = req.data.userFrom;
-
-    Subscriber.find({ userFrom: userFrom})
+    let userFrom = req.body.userFrom;
+    console.log(`getSubVideos's userFrom : ${userFrom}`)
+    Subscriber.find({ 'userFrom': userFrom})
     .exec((err,subInfo) => {
         if(err) return res.status(400).send(err);
         
@@ -128,7 +128,7 @@ router.post("/getSubVideos", (req, res) => {
         })
 
         // 구독하는 유저의 비디오를 가져온다.
-        Video.find({ writer : { $in: subscribedList}})
+        Video.find({ 'writer' : { $in: subscribedList}})
         .populate('writer')
         .exec((err, videos) => {
             if(err) return res.status(400).send(err);

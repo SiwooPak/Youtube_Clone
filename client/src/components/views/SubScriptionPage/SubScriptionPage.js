@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaCode } from "react-icons/fa";
+// import { FaCode } from "react-icons/fa";
 import { Card, Icon, Avatar, Col, Typography, Row } from "antd";
 import Axios from "axios";
 import moment from "moment";
@@ -9,15 +9,16 @@ const { Meta } = Card;
 
 function SubScriptionPage() {
   const [Videos, setVideos] = useState([]);
-
+  console.log(localStorage.getItem("userId"))
   //dom이 업뎃 될때 1번
   useEffect(() => {
-      const sub = {
+      const subInfo = {
           userFrom: localStorage.getItem("userId")
       }
-    Axios.post("/api/video/getSubVideos", sub).then((response) => {
+      console.log('userFrom: '+subInfo);
+    Axios.post("/api/video/getSubVideos", subInfo).then((response) => {
       if (response.data.success) {
-        //console.log(response.data);
+        console.log(response.data);
         setVideos(response.data.videos);
       } else {
         alert("videos null.");
@@ -59,7 +60,7 @@ function SubScriptionPage() {
 
   return (
     <div style={{ width: "85%", margin: "3rem auto" }}>
-      <Title level={2}>Recommended</Title>
+      <Title level={2}>Subscription Videos</Title>
       <br />
       <Row gutter={[32, 16]}>{renderCards}</Row>
     </div>
