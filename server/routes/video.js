@@ -3,6 +3,8 @@ const router = express.Router();
 const { Video } = require("../models/Video");
 const multer = require("multer");
 const { auth } = require("../middleware/auth");
+const { Subscriber } = require("../models/Subscriber");
+
 let ffmpeg = require("fluent-ffmpeg");
 const { compareSync } = require('bcrypt');
 
@@ -109,6 +111,31 @@ router.post("/getVideoDetail", (req, res) => {
             if(err) return res.status(400).send(err);
             return res.status(200).json({success: true, videoDetail})
         })
+    
+});
+
+router.post("/getSubVideos", (req, res) => {
+    // 자신의 아이디를 가지고 구독하는 사람들을 찾는다.
+    let userFrom = req.data.userFrom;
+
+    Subscriber.find({ userFrom: userFrom})
+    .exec((err,subInfo) => {
+        if(err) return res.status(400).send(err);
+        
+        let subscribedList = [];
+        subInfo.map((subscriber,i) => {
+            subscribedList.push(subscriber.userTo);
+        })
+
+        // 구독하는 유저의 비디오를 가져온다.
+        Video.find({ writer : { $in: subscribedList}})
+        .populate('writer')
+        .exec((err, videos) => {
+            if(err) return res.status(400).send(err);
+            return res.status(200).json({ success: true, videos})
+        })
+    })
+    
     
 });
 
