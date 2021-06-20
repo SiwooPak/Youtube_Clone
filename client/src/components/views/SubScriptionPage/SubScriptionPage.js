@@ -13,7 +13,7 @@ function SubScriptionPage() {
   //dom이 업뎃 될때 1번
   useEffect(() => {
       const sub = {
-          userFrom: localStorage.getItem("userId");
+          userFrom: localStorage.getItem("userId")
       }
     Axios.post("/api/video/getSubVideos", sub).then((response) => {
       if (response.data.success) {
