@@ -4,14 +4,15 @@ import Axios from "axios";
 function Subscribe({ userTo, userFrom }) {
   const [SubscribeNum, setSubscribeNum] = useState(0);
   const [IsSubscribed, setIsSubscribed] = useState(false);
-
+  console.log(SubscribeNum);
   const subscribeVars = {
     userTo: userTo,
-    userFrom: userFrom,
-  };  
+    userFrom: userFrom
+  }; 
 
   useEffect(() => {
-    Axios.post("/api/subscribe/subscribeNumber", subscribeVars).then(
+    
+    Axios.post("/api/subscribe/subscribeNum", subscribeVars).then(
       (response) => {
         if (response.data.success) {
           setSubscribeNum(response.data.subscribeNumber);
@@ -32,6 +33,7 @@ function Subscribe({ userTo, userFrom }) {
 
   
   const onSubscribe = () => {
+    
     if (IsSubscribed) {
       Axios.post("/api/subscribe/unSubscribe", subscribeVars ).then(
         (response) => {
@@ -39,6 +41,7 @@ function Subscribe({ userTo, userFrom }) {
             //console.log('UnSubscribed Success');  
             setSubscribeNum(SubscribeNum - 1);
             setIsSubscribed(!IsSubscribed);
+            console.log(SubscribeNum);
           } else {
             //console.log('UnSubscribed Fail');  
             alert("Unsubscirbe failed!");
@@ -46,11 +49,12 @@ function Subscribe({ userTo, userFrom }) {
         }
       );
     } else {
-      Axios.post("/api/subscribe/subscribe", subscribeVars ).then((response) => {
+      Axios.post("/api/subscribe/subs", subscribeVars ).then((response) => {
         if (response.data.success) {
           //console.log('Subscribed Success'); 
           setSubscribeNum(SubscribeNum + 1);
           setIsSubscribed(!IsSubscribed);
+          console.log(SubscribeNum);
         } else {
           //console.log('Subscribed Fail');   
           alert("Subscribe Failed!");

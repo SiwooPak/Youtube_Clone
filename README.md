@@ -86,3 +86,9 @@
   - 템플릿 생성
   - 내가 구독한 유저의 비디오들만 서버에서 가져오기
   - 가져온 비디오 데이터들 화면에 출력
+
+### 6/21
+- 댓글 부분만들기(1)
+  - make comment model 
+  - VideoDetailPags.js에 Comment Components 생성
+  
