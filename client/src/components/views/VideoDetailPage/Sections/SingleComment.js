@@ -1,14 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import { Comment, Avatar, Button, Input } from "antd";
 import Axios from "axios";
 
 const TextArea = Input;
 
-function SingleComment({videoId, comment, user}) {
+function SingleComment({videoId, comment, user, refresh}) {
   const [OpenReply, setOpenReply] = useState(false);
   const [ReplyContent, setReplyContent] = useState("");
-
-  const action = [
+  console.log(comment.comment)  
+  const actions = [
     <span onClick={()=> setOpenReply(!OpenReply)} key="comment-basic-reply-to">
       ReplyTo
     </span>
@@ -18,7 +18,7 @@ function SingleComment({videoId, comment, user}) {
     setReplyContent(e.currentTarget.value);
   }
 
-  const onReplySubmit  = e => {
+  const onSubmit  = e => {
     e.preventDefault();
     const vars = {
         content: ReplyContent,
@@ -29,8 +29,9 @@ function SingleComment({videoId, comment, user}) {
     Axios.post('/api/comment/saveComment', vars) 
         .then( response => {
             if(response.data.success) {
-                refreshFunc(response.data.result);
+                setOpenReply(!OpenReply);
                 setReplyContent("");
+                refresh(response.data.result);
             } else {
                 alert("can't save reply!")
             }
@@ -42,14 +43,19 @@ function SingleComment({videoId, comment, user}) {
       <Comment 
         actions = {actions} 
         author = {comment.writer.name} 
-        avatar={<Avatar src alt />} 
-        content 
+        avatar={<Avatar src={comment.writer.image} alt="image" />} 
+        content= {
+            <p>
+                {comment.content}
+            </p>
+        } 
         />
       {OpenReply && (
-        <form style={{ display: "flex" }} onSubmit={onReplySubmit}>
+        <form style={{ display: "flex" }} onSubmit={onSubmit}>
           <TextArea
             style={{ width: "100%", borderRadius: "5px" }}
             onChange={onHandleChange}
+            value={ReplyContent}
             placeholder="Enter your Reply"
           />
 
