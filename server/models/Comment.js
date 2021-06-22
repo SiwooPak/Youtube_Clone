@@ -4,7 +4,7 @@ const saltRounds = 10;
 
 const moment = require("moment");
 
-const subscriberSchema = mongoose.Schema({
+const commentSchema = mongoose.Schema({
     writer: {
         type: Schema.Types.ObjectId,
         ref: 'User'

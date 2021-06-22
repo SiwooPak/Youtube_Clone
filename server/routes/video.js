@@ -117,7 +117,7 @@ router.post("/getVideoDetail", (req, res) => {
 router.post("/getSubVideos", (req, res) => {
     // 자신의 아이디를 가지고 구독하는 사람들을 찾는다.
     let userFrom = req.body.userFrom;
-    console.log(`getSubVideos's userFrom : ${userFrom}`)
+    //console.log(`getSubVideos's userFrom : ${userFrom}`)
     Subscriber.find({ 'userFrom': userFrom})
     .exec((err,subInfo) => {
         if(err) return res.status(400).send(err);

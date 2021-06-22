@@ -9,16 +9,16 @@ const { Meta } = Card;
 
 function SubScriptionPage() {
   const [Videos, setVideos] = useState([]);
-  console.log(localStorage.getItem("userId"))
+  //console.log(localStorage.getItem("userId"))
   //dom이 업뎃 될때 1번
   useEffect(() => {
       const subInfo = {
           userFrom: localStorage.getItem("userId")
       }
-      console.log('userFrom: '+subInfo);
+      //console.log('userFrom: '+subInfo);
     Axios.post("/api/video/getSubVideos", subInfo).then((response) => {
       if (response.data.success) {
-        console.log(response.data);
+        //console.log(response.data);
         setVideos(response.data.videos);
       } else {
         alert("videos null.");

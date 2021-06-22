@@ -4,7 +4,7 @@ import Axios from "axios";
 function Subscribe({ userTo, userFrom }) {
   const [SubscribeNum, setSubscribeNum] = useState(0);
   const [IsSubscribed, setIsSubscribed] = useState(false);
-  console.log(SubscribeNum);
+  //console.log(SubscribeNum);
   const subscribeVars = {
     userTo: userTo,
     userFrom: userFrom
@@ -41,7 +41,7 @@ function Subscribe({ userTo, userFrom }) {
             //console.log('UnSubscribed Success');  
             setSubscribeNum(SubscribeNum - 1);
             setIsSubscribed(!IsSubscribed);
-            console.log(SubscribeNum);
+            //console.log(SubscribeNum);
           } else {
             //console.log('UnSubscribed Fail');  
             alert("Unsubscirbe failed!");
