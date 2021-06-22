@@ -91,4 +91,13 @@
 - 댓글 부분만들기(1)
   - make comment model 
   - VideoDetailPags.js에 Comment Components 생성
+
+### 6/22
+- 댓글 기능 생성(2)
+  - Comment.js의 템플릿 만들기
+  - handleChange 이벤트 함수
+  - onSubmit 이벤트 함수
+  - 저장된 댓글 데이터를 부모 컴포넌트로 업뎃
+  - 콘솔창에서 댓글 리스트들 확인
+  
   
