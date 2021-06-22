@@ -20,8 +20,18 @@ function VideoDetailPage(props) {
         alert("비디오 정보를 가져오길 실패했습니다.");
       }
     })
+
+    Axios.post('/api/comment/getComments', variable)
+      .then(response => {
+        if(response.data.success) {
+          setComments(response.data.Comments);
+        } else {
+          alert('failed!')
+        }
+      })
   },[])
 
+  const refreshFunc = (newComments) => setComments(Comments.concat(newComment));
   
     return (
       
@@ -49,7 +59,7 @@ function VideoDetailPage(props) {
                 />
               </List.Item>
               {/* reply */}
-              <Comment videoId={videoId}/>
+              <Comment videoId={videoId} comments={Comments} refreshFunc={refreshFunc}/>
             </div>
           </Col>
           <Col lg={6} xs={24}>

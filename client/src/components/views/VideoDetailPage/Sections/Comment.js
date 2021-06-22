@@ -1,15 +1,18 @@
 import Axios from 'axios';
-import React, { useState } from 'react'
-import {useSelector} from 'react-redux'
+import React, { useState } from 'react';
+import {useSelector} from 'react-redux';
+import SingleComment from './SingleComment';
 
 
-function Comment({ videoId }) {
+function Comment({ videoId, comments, refreshFunc }) {
     const user = useSelector(state => state.user);
     const [CommentValue, setCommentValue] = useState("");
 
     const handleChange = (e) => {
         setCommentValue(e.currentTarget.value);
     }
+
+    const
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -18,11 +21,13 @@ function Comment({ videoId }) {
             writer: user.userData._id,
             postId: videoId
         }
-        console.log(vars)
+        //console.log(vars)
         Axios.post('/api/comment/saveComment', vars)
             .then(response => {
                 if(response.data.success) {
-                    console.log(response.data.result);
+                    // console.log(response.data.result);
+                    refreshFunc(response.data.result);
+                    setCommentValue("");
                 } else {
                     alert('cannot save reply!')
                 }
@@ -30,12 +35,10 @@ function Comment({ videoId }) {
     }    
 
     return (
-        <div>
+        <div style={{ marginLeft: '1rem'}}>
             <br />
             <p>Replies</p>
             <hr />
-            {/* Comments Lists */}
-
             {/* root comment form */}
             <form style={{display: 'flex'}} onSubmit={onSubmit}>
                 <textarea
@@ -49,7 +52,21 @@ function Comment({ videoId }) {
                     Submit
                 </button>
             </form>
+            <br />
+            {/* Comments Lists */}
+            {comments && comments.map((comment, index) => {
+                (!comment.responseTo &&
+                    <SingleComment 
+                        key={index} 
+                        user={user} 
+                        videoId={videoId} 
+                        comment={comment}
+                        refreshFunc={refreshFunc}    
+                    />
+                )
+            })
 
+            }
         </div>
     )
 }
