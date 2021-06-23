@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Comment, Avatar, Button, Input } from "antd";
 import Axios from "axios";
+import LikeDisLike from "./LikeDisLike";
 
 const TextArea = Input;
 
@@ -15,9 +16,10 @@ function SingleComment({videoId, comment, user, refresh}) {
   }
 
   const actions = [
-    <span onClick={OpenHandle} key="comment-basic-reply-to">
-      ReplyTo
-    </span>
+    <LikeDisLike commentId={comment._id} userId={localStorage.getItem('userId')}/>
+    ,<p onClick={OpenHandle} key="comment-basic-reply-to">
+      &nbsp;&nbsp; 답글쓰기
+    </p>
   ];
 
   const onHandleChange = e => {

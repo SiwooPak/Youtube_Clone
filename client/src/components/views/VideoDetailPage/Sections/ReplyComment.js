@@ -55,7 +55,7 @@ function ReplyComment({
           style={{ fontSize: "14px", margin: 0, color: "gray" }}
           onClick={handleChange}
         >
-          View {ChildCommentNumber} more comments
+          답글보기({ChildCommentNumber}) 
         </p>
       )}
       {OpenReplyComment && renderReplyComment(parentCommentId)}
