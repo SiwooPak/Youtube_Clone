@@ -2,13 +2,13 @@ import Axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import SingleComment from "./SingleComment";
+import ReplyComment from "./ReplyComment";
 
 function Comment({ videoId, CommentList, refresh }) {
   const user = useSelector((state) => state.user);
   const [Comment, setComment] = useState("");
 
   const handleChange = (e) => setComment(e.currentTarget.value);
-  
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -55,16 +55,26 @@ function Comment({ videoId, CommentList, refresh }) {
       {CommentList &&
         CommentList.map(
           (comment, index) =>
-            (!comment.responseTo && (
-              <SingleComment
-                key={index}
-                user={user}
-                videoId={videoId}
-                comment={comment}
-                refresh={refresh}
-              />
+            !comment.responseTo && (
+              <>
+                <div key={index}>
+                  <SingleComment
+                    user={user}
+                    videoId={videoId}
+                    comment={comment}
+                    refresh={refresh}
+                  />
+                  <ReplyComment
+                    CommentList={CommentList}
+                    user={user}
+                    videoId={videoId}
+                    refresh={refresh}
+                    parentCommentId={comment._id}
+                  />
+                </div>
+              </>
             )
-        ))}
+        )}
     </div>
   );
 }

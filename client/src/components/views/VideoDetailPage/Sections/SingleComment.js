@@ -7,9 +7,15 @@ const TextArea = Input;
 function SingleComment({videoId, comment, user, refresh}) {
   const [OpenReply, setOpenReply] = useState(false);
   const [ReplyContent, setReplyContent] = useState("");
-  console.log(comment.comment)  
+  // console.log(comment.comment) 
+  
+  const OpenHandle = () => {
+    setOpenReply(!OpenReply);
+    setReplyContent("");
+  }
+
   const actions = [
-    <span onClick={()=> setOpenReply(!OpenReply)} key="comment-basic-reply-to">
+    <span onClick={OpenHandle} key="comment-basic-reply-to">
       ReplyTo
     </span>
   ];
@@ -53,7 +59,7 @@ function SingleComment({videoId, comment, user, refresh}) {
       {OpenReply && (
         <form style={{ display: "flex" }} onSubmit={onSubmit}>
           <TextArea
-            style={{ width: "100%", borderRadius: "5px" }}
+            style={{ width: "80%", marginLeft: "5rem", borderRadius: "5px" }}
             onChange={onHandleChange}
             value={ReplyContent}
             placeholder="Enter your Reply"

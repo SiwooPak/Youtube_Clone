@@ -30,7 +30,7 @@ function VideoDetailPage(props) {
         }
       })
   },[])
-  console.log(`commentList: ${CommentList}`)
+  //console.log(`commentList: ${CommentList}`)
   const updateComment = (newComment) => {
     setCommentList(CommentList.concat(newComment));
   }
