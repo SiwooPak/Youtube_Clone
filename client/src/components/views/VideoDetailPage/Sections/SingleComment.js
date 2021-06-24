@@ -17,9 +17,9 @@ function SingleComment({videoId, comment, user, refresh}) {
 
   const actions = [
     <LikeDisLike commentId={comment._id} userId={localStorage.getItem('userId')}/>
-    ,<p onClick={OpenHandle} key="comment-basic-reply-to">
+    ,<span onClick={OpenHandle} key="comment-basic-reply-to">
       &nbsp;&nbsp; 답글쓰기
-    </p>
+    </span>
   ];
 
   const onHandleChange = e => {

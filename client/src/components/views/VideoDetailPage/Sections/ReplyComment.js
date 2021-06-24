@@ -46,7 +46,10 @@ function ReplyComment({
       </React.Fragment>
     ));
 
-  const handleChange = () => setOpenReplyComment(!OpenReplyComment);
+  const handleChange = (e) => {
+    setOpenReplyComment(!OpenReplyComment);
+    // e.target.style.visibility = 'hidden';
+  }
 
   return (
     <div>
